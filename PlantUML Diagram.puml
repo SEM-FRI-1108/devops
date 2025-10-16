@@ -13,28 +13,85 @@ actor "Organisation Member" as OM
 
 rectangle "Population Insights System" {
 
-  ' ===== Project Deployer Use Cases =====
-  PD --> (View total population, urban and rural data per country)
-  PD --> (View total population, urban and rural data per continent)
-  PD --> (View population of a chosen city)
-  PD --> (View population of a chosen district)
-  PD --> (View population of a chosen country)
-  PD --> (View population of a chosen region)
-  PD --> (View population of a chosen continent)
-  PD --> (View total world population)
+  ' ===== Common Core Use Cases =====
+  (View population data) as VPD
+  (List cities by population) as LCP
+  (Generate population report) as GPR
+  (Compare populations) as CP
 
-  PD --> (View most populated cities in a chosen district)
-  PD --> (View most populated cities in a chosen country)
-  PD --> (View most populated cities in a chosen region)
-  PD --> (View most populated cities in a chosen continent)
-  PD --> (View top populated cities in the world)
+  ' ===== Project Deployer Use Cases =====
+  (View total world population) as VWP
+  (View population of a chosen continent) as VPC
+  (View population of a chosen region) as VPR
+  (View population of a chosen country) as VPCTRY
+  (View population of a chosen district) as VPDIST
+  (View population of a chosen city) as VPCITY
+
+  (View total population, urban and rural data per country) as TPUC
+  (View total population, urban and rural data per continent) as TPUCN
+
+  (View most populated cities in a chosen district) as MPCDIST
+  (View most populated cities in a chosen country) as MPCCNTRY
+  (View most populated cities in a chosen region) as MPCREG
+  (View most populated cities in a chosen continent) as MPCCONT
+  (View top populated cities in the world) as MPCWORLD
 
   ' ===== Organisation Member Use Cases =====
-  OM --> (List cities in a district by population)
-  OM --> (List cities in a country by population)
-  OM --> (View most populated cities in a continent)
-  OM --> (View report of largest countries by population)
-  OM --> (View most populated cities in the world)
+  (List cities in a district by population) as LCD
+  (List cities in a country by population) as LCC
+  (View most populated cities in a continent) as MPCONT
+  (View report of largest countries by population) as RLCP
+  (View most populated cities in the world) as MPCW
+
+  ' ====== Relationships for Project Deployer ======
+  PD --> TPUC
+  PD --> TPUCN
+  PD --> VPCITY
+  PD --> VPDIST
+  PD --> VPCTRY
+  PD --> VPR
+  PD --> VPC
+  PD --> VWP
+
+  PD --> MPCDIST
+  PD --> MPCCNTRY
+  PD --> MPCREG
+  PD --> MPCCONT
+  PD --> MPCWORLD
+
+  ' Include relationships (shared logic)
+  TPUC --> (View population data) : <<include>>
+  TPUCN --> (View population data) : <<include>>
+  VPCITY --> (View population data) : <<include>>
+  VPDIST --> (View population data) : <<include>>
+  VPCTRY --> (View population data) : <<include>>
+  VPR --> (View population data) : <<include>>
+  VPC --> (View population data) : <<include>>
+  VWP --> (View population data) : <<include>>
+
+  MPCDIST --> (List cities by population) : <<include>>
+  MPCCNTRY --> (List cities by population) : <<include>>
+  MPCREG --> (List cities by population) : <<include>>
+  MPCCONT --> (List cities by population) : <<include>>
+  MPCWORLD --> (List cities by population) : <<include>>
+
+  ' Optional extensions
+  VPDIST --> (Compare populations) : <<extend>>
+  VPCTRY --> (Compare populations) : <<extend>>
+  VPC --> (Generate population report) : <<extend>>
+
+  ' ====== Relationships for Organisation Member ======
+  OM --> LCD
+  OM --> LCC
+  OM --> MPCONT
+  OM --> RLCP
+  OM --> MPCW
+
+  LCD --> (List cities by population) : <<include>>
+  LCC --> (List cities by population) : <<include>>
+  MPCONT --> (List cities by population) : <<include>>
+  RLCP --> (Generate population report) : <<include>>
+  MPCW --> (List cities by population) : <<include>>
 
 }
 
