@@ -43,7 +43,7 @@ rectangle "Population Insights System" {
   (View report of largest countries by population) as RLCP
   (View most populated cities in the world) as MPCW
 
-  ' ====== Relationships for Project Deployer ======
+  ' ====== Relationships for the Project Deployer ======
   PD --> TPUC
   PD --> TPUCN
   PD --> VPCITY
