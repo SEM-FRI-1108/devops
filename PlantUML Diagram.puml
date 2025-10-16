@@ -1,0 +1,41 @@
+@startuml
+left to right direction
+skinparam actorStyle awesome
+skinparam usecase {
+  BackgroundColor #E3F2FD
+  BorderColor #1565C0
+  ArrowColor #0D47A1
+  FontColor #0D47A1
+}
+
+actor "Project Deployer" as PD
+actor "Organisation Member" as OM
+
+rectangle "Population Insights System" {
+
+  ' ===== Project Deployer Use Cases =====
+  PD --> (View total population, urban and rural data per country)
+  PD --> (View total population, urban and rural data per continent)
+  PD --> (View population of a chosen city)
+  PD --> (View population of a chosen district)
+  PD --> (View population of a chosen country)
+  PD --> (View population of a chosen region)
+  PD --> (View population of a chosen continent)
+  PD --> (View total world population)
+
+  PD --> (View most populated cities in a chosen district)
+  PD --> (View most populated cities in a chosen country)
+  PD --> (View most populated cities in a chosen region)
+  PD --> (View most populated cities in a chosen continent)
+  PD --> (View top populated cities in the world)
+
+  ' ===== Organisation Member Use Cases =====
+  OM --> (List cities in a district by population)
+  OM --> (List cities in a country by population)
+  OM --> (View most populated cities in a continent)
+  OM --> (View report of largest countries by population)
+  OM --> (View most populated cities in the world)
+
+}
+
+@enduml
