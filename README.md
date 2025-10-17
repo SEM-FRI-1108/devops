@@ -5,4 +5,8 @@
 
 Software Engineering Methods devops coursework for Group Friday/1108
 
-EDIT TEST
+Members: Daniel Bates,
+Rogie Omoregie,
+Jessica Tekielak,
+Igor Zarkiewicz
+
