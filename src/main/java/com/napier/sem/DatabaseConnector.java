@@ -19,7 +19,7 @@ public class DatabaseConnector {
     /**
      * Connect to the MySQL database.
      */
-    public void connect()
+    public Connection connect()
     {
         try
         {
@@ -44,7 +44,7 @@ public class DatabaseConnector {
 
                 con = DriverManager.getConnection("jdbc:mysql://"+db_address+"/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected my friend");
-                break;
+                return con;
             }
             catch (SQLException sqle)
             {
@@ -56,6 +56,7 @@ public class DatabaseConnector {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
+        return null;
     }
 
     /**
@@ -78,4 +79,6 @@ public class DatabaseConnector {
             }
         }
     }
+
+
 }

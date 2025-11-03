@@ -1,7 +1,6 @@
 package com.napier.sem;
 
 import java.sql.*;
-import java.util.Locale;
 
 public class App
 {
@@ -18,9 +17,16 @@ public class App
         DatabaseConnector dbC = new DatabaseConnector(debug);
 
         // Connect to database
-        dbC.connect();
+        Connection con = dbC.connect();
+
+        //find and display information about a country (france)
+        CountryReport rep1 = new CountryReport(con);
+        Country france = rep1.getCountryFromCode("FRA");
+        rep1.displayReport(france);
 
         // Disconnect from database
         dbC.disconnect();
     }
+
+
 }
