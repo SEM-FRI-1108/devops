@@ -2,6 +2,7 @@ package com.napier.sem;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -14,6 +15,19 @@ public class CountryReport {
         this.con = con;
     }
 
+    private void processResults(ResultSet rslt) throws SQLException {
+            while (rslt.next()) {
+                Country country = new Country();
+                country.code = rslt.getString("code");
+                country.name = rslt.getString("name");
+                country.continent = rslt.getString("continent");
+                country.region = rslt.getString("region");
+                country.population = rslt.getInt("population");
+                country.capital = rslt.getInt("capital");
+                countries.add(country);
+            }
+    }
+
     /**
      * Method to search database for details of country of specific Alpha-3 Code
      * @param code the Alpha-3 code of the required country
@@ -23,22 +37,53 @@ public class CountryReport {
     public void getCountryFromCode(String code) {
         try {
             Statement stmt = con.createStatement();
-            String sql = "SELECT Code, Name, Continent, Region, Population, Capital from country WHERE Code = '" + code + "'";
+            String sql = "SELECT Code, Name, Continent, Region, Population, Capital " +
+                        "FROM country " +
+                        "WHERE Code = '" + code + "'";
             ResultSet resultSet = stmt.executeQuery(sql);
-            while (resultSet.next()){
-                Country country = new Country();
-                country.code = resultSet.getString("code");
-                country.name = resultSet.getString("name");
-                country.continent = resultSet.getString("continent");
-                country.region = resultSet.getString("region");
-                country.population = resultSet.getInt("population");
-                country.capital = resultSet.getInt("capital");
-                countries.add(country);
-            }
+            processResults(resultSet);
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country");
+        }
+    }
+
+    public void getPopulusCountriesFromContinent(String continent, int limit) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT Code, Name, Continent, Region, Population, Capital " +
+                        "FROM country " +
+                        "WHERE Continent = '" + continent + "' " +
+                        "ORDER BY  Population DESC";
+            if (limit != -1) {
+                sql += " LIMIT " + limit;
+            }
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to identify continent");
+        }
+    }
+
+    public void getPopulusCountriesFromRegion(String region, int limit) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT Code, Name, Continent, Region, Population, Capital " +
+                    "FROM country " +
+                    "WHERE Region = '" + region + "' " +
+                    "ORDER BY  Population DESC";
+            if (limit != -1) {
+                sql += " LIMIT " + limit;
+            }
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to identify region");
         }
     }
 

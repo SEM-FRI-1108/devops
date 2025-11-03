@@ -24,6 +24,20 @@ public class App
         rep1.getCountryFromCode("FRA");
         rep1.displayReport();
 
+        //list countries by pop in a given continent
+        CountryReport rep2 = new CountryReport(con);
+        rep2.getPopulusCountriesFromContinent("Europe", -1);
+        rep2.displayReport();
+
+        //list countries by pop in a given continent to a certain limit
+        CountryReport rep3 = new CountryReport(con);
+        rep3.getPopulusCountriesFromContinent("Africa", 3);
+        rep3.displayReport();
+
+        CountryReport rep4 = new CountryReport(con);
+        rep4.getPopulusCountriesFromRegion("Western Africa", 3);
+        rep4.displayReport();
+
         // Disconnect from database
         dbC.disconnect();
     }
