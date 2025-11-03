@@ -21,8 +21,8 @@ public class App
 
         //find and display information about a country (france)
         CountryReport rep1 = new CountryReport(con);
-        Country france = rep1.getCountryFromCode("FRA");
-        rep1.displayReport(france);
+        rep1.getCountryFromCode("FRA");
+        rep1.displayReport();
 
         // Disconnect from database
         dbC.disconnect();

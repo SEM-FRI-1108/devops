@@ -20,12 +20,12 @@ public class CountryReport {
      * @return a Country object with the name,continent,region,population,and capital initialised
      * Will add Country to this report's list of countries as well.
      */
-    public Country getCountryFromCode(String code) {
+    public void getCountryFromCode(String code) {
         try {
             Statement stmt = con.createStatement();
             String sql = "SELECT Code, Name, Continent, Region, Population, Capital from country WHERE Code = '" + code + "'";
             ResultSet resultSet = stmt.executeQuery(sql);
-            if (resultSet.next()){
+            while (resultSet.next()){
                 Country country = new Country();
                 country.code = resultSet.getString("code");
                 country.name = resultSet.getString("name");
@@ -34,34 +34,30 @@ public class CountryReport {
                 country.population = resultSet.getInt("population");
                 country.capital = resultSet.getInt("capital");
                 countries.add(country);
-                return country;
-            }
-            else {
-                return null;
             }
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get country");
-            return null;
         }
     }
 
     /**
      * Display method for a report concerning a country.
-     * @param country
      */
-    public void displayReport(Country country) {
-        if (country == null) {
-            country = countries.get(0);
+    public void displayReport() {
+        if (countries.isEmpty()) {
+            System.out.println("There are no countries in this report.");
         }
-        System.out.println(
-                country.code + " | " +
-                country.name + " | " +
-                country.continent + " | " +
-                country.region + " | " +
-                country.population + " | " +
-                country.capital
-        );
+        else {
+            for (Country country : countries) {
+                System.out.println(country.code + " | " +
+                                    country.name + " | " +
+                                    country.continent + " | " +
+                                    country.region + " | " +
+                                    country.population + " | " +
+                                    country.capital);
+            }
+        }
     }
 }
