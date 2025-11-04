@@ -19,24 +19,30 @@ public class App
         // Connect to database
         Connection con = dbC.connect();
 
-        //find and display information about a country (france)
+        //find and display information about a country
         CountryReport rep1 = new CountryReport(con);
         rep1.getCountryFromCode("FRA");
         rep1.displayReport();
 
         //list countries by pop in a given continent
         CountryReport rep2 = new CountryReport(con);
-        rep2.getPopulusCountriesFromContinent("Europe", -1);
+        rep2.getPopulousCountriesFromContinent("Europe", -1);
         rep2.displayReport();
 
         //list countries by pop in a given continent to a certain limit
         CountryReport rep3 = new CountryReport(con);
-        rep3.getPopulusCountriesFromContinent("Africa", 3);
+        rep3.getPopulousCountriesFromContinent("Africa", 3);
         rep3.displayReport();
 
+        //list countries by pop in a given region to a certain limit
         CountryReport rep4 = new CountryReport(con);
-        rep4.getPopulusCountriesFromRegion("Western Africa", 3);
+        rep4.getPopulousCountriesFromRegion("Western Africa", 3);
         rep4.displayReport();
+
+        //list all countries in the world by population to a certain limit
+        CountryReport rep5 = new CountryReport(con);
+        rep5.getPopulousCountriesInWorld(10);
+        rep5.displayReport();
 
         // Disconnect from database
         dbC.disconnect();

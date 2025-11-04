@@ -30,9 +30,8 @@ public class CountryReport {
 
     /**
      * Method to search database for details of country of specific Alpha-3 Code
+     * Will add Country to this report's list of countries
      * @param code the Alpha-3 code of the required country
-     * @return a Country object with the name,continent,region,population,and capital initialised
-     * Will add Country to this report's list of countries as well.
      */
     public void getCountryFromCode(String code) {
         try {
@@ -49,13 +48,42 @@ public class CountryReport {
         }
     }
 
-    public void getPopulusCountriesFromContinent(String continent, int limit) {
+    /**
+     * Method to search database for the most populated countries in the world
+     * Will add Country to this report's list of countries
+     * @param limit the number of Countries. -1 for all
+     */
+    public void getPopulousCountriesInWorld(int limit) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT Code, Name, Continent, Region, Population, Capital " +
+                    "FROM country " +
+                    "ORDER BY Population DESC";
+            if (limit != -1) {
+                sql += " LIMIT " + limit;
+            }
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to access countries");
+        }
+    }
+
+    /**
+     * Method to search database for the most populated countries of a specified continent
+     * Will add Country to this report's list of countries
+     * @param continent the continent countries should be in
+     * @param limit the number of Countries. -1 for all
+     */
+    public void getPopulousCountriesFromContinent(String continent, int limit) {
         try {
             Statement stmt = con.createStatement();
             String sql = "SELECT Code, Name, Continent, Region, Population, Capital " +
                         "FROM country " +
                         "WHERE Continent = '" + continent + "' " +
-                        "ORDER BY  Population DESC";
+                        "ORDER BY Population DESC";
             if (limit != -1) {
                 sql += " LIMIT " + limit;
             }
@@ -68,13 +96,19 @@ public class CountryReport {
         }
     }
 
-    public void getPopulusCountriesFromRegion(String region, int limit) {
+    /**
+     * Method to search database for the most populated countries of a specified region
+     * Will add Country to this report's list of countries
+     * @param region the region countries should be in
+     * @param limit the number of Countries. -1 for all
+     */
+    public void getPopulousCountriesFromRegion(String region, int limit) {
         try {
             Statement stmt = con.createStatement();
             String sql = "SELECT Code, Name, Continent, Region, Population, Capital " +
                     "FROM country " +
                     "WHERE Region = '" + region + "' " +
-                    "ORDER BY  Population DESC";
+                    "ORDER BY Population DESC";
             if (limit != -1) {
                 sql += " LIMIT " + limit;
             }
