@@ -44,6 +44,16 @@ public class App
         rep5.getPopulousCountriesInWorld(10);
         rep5.displayReport();
 
+        // city report
+        CityReport cityReport = new CityReport(con);
+        cityReport.getPopulousCitiesInWorld(10);
+        cityReport.displayReport();
+
+        //country language report
+        CountryLanguageReport clr = new CountryLanguageReport(con);
+        clr.getLanguagesFromCountry("GBR");
+        clr.displayReport();
+
         // Disconnect from database
         dbC.disconnect();
     }
