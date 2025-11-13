@@ -1,0 +1,58 @@
+package com.napier.sem;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class CountryLanguageReport {
+
+    private Connection con;
+    private ArrayList<CountryLanguage> languages = new ArrayList<>();
+
+    public CountryLanguageReport(Connection con) {
+        this.con = con;
+    }
+
+    private void processResults(ResultSet rslt) throws SQLException {
+        while (rslt.next()) {
+            CountryLanguage cl = new CountryLanguage();
+            cl.countryCode = rslt.getString("CountryCode");
+            cl.language = rslt.getString("Language");
+            cl.isOfficial = "T".equals(rslt.getString("IsOfficial"));
+            cl.percentage = rslt.getFloat("Percentage");
+            languages.add(cl);
+        }
+    }
+
+    public void getLanguagesFromCountry(String code) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT CountryCode, Language, IsOfficial, Percentage " +
+                    "FROM countrylanguage " +
+                    "WHERE CountryCode = '" + code + "' " +
+                    "ORDER BY Percentage DESC";
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country languages");
+        }
+    }
+
+    public void displayReport() {
+        if (languages.isEmpty()) {
+            System.out.println("There are no languages in this report.");
+        }
+        else {
+            for (CountryLanguage cl : languages) {
+                System.out.println(cl.countryCode + " | " +
+                        cl.language + " | " +
+                        (cl.isOfficial ? "Official" : "Not Official") + " | " +
+                        cl.percentage);
+            }
+        }
+    }
+}
