@@ -1,0 +1,84 @@
+package com.napier.sem;
+import java.sql.*;
+
+public class DatabaseConnector {
+
+    /**
+     * Connection to MySQL database.
+     */
+    private Connection con = null;
+    private String db_address = "db:3306";
+
+    public DatabaseConnector(boolean debug) {
+        if (debug) {
+            System.out.println("debug mode, local conection");
+            db_address = "localhost:33060";
+        }
+    }
+
+    /**
+     * Connect to the MySQL database.
+     */
+    public Connection connect()
+    {
+        try
+        {
+            // Load Database driver
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }
+        catch (ClassNotFoundException e)
+        {
+            System.out.println("Could not load SQL driver");
+            System.exit(-1);
+        }
+
+        int retries = 10;
+        for (int i = 0; i < retries; ++i)
+        {
+            System.out.println("Connecting to database...");
+            try
+            {
+                // Wait a bit for db to start
+                Thread.sleep(3000);
+                // Connect to database
+
+                con = DriverManager.getConnection("jdbc:mysql://"+db_address+"/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                System.out.println("Successfully connected my friend");
+                return con;
+            }
+            catch (SQLException sqle)
+            {
+                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
+                System.out.println(sqle.getMessage());
+            }
+            catch (InterruptedException ie)
+            {
+                System.out.println("Thread interrupted? Should not happen.");
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Disconnect from the MySQL database.
+     */
+    public void disconnect()
+    {
+        if (con != null)
+        {
+            try
+            {
+                // Close connection
+                System.out.println("Connection closed");
+                con.close();
+
+            }
+            catch (Exception e)
+            {
+                System.out.println("Error closing connection to database");
+            }
+        }
+    }
+
+
+}

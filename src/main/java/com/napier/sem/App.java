@@ -6,57 +6,57 @@ public class App
 {
     public static void main(String[] args)
     {
-        try
-        {
-            // Load Database driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        // Create new Database Connector
+        // For DEBUG mode, connect to localhost for faster database access
+        boolean debug;
+        if (args.length == 0) {
+            debug = false;
+        } else {
+            debug = args[0].equalsIgnoreCase("debug");
         }
-        catch (ClassNotFoundException e)
-        {
-            System.out.println("Could not load SQL driver");
-            System.exit(-1);
-        }
+        DatabaseConnector dbC = new DatabaseConnector(debug);
 
-        // Connection to the database
-        Connection con = null;
-        int retries = 100;
-        for (int i = 0; i < retries; ++i)
-        {
-            System.out.println("Connecting to database...");
-            try
-            {
-                // Wait a bit for db to start
-                Thread.sleep(1000);
-                // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false&allowPublicKeyRetrieval=true", "root", "example");
-                System.out.println("Successfully connected");
-                // Wait a bit
-                Thread.sleep(1000);
-                // Exit for loop
-                break;
-            }
-            catch (SQLException sqle)
-            {
-                System.out.println("Failed to connect to database attempt " + Integer.toString(i));
-                System.out.println(sqle.getMessage());
-            }
-            catch (InterruptedException ie)
-            {
-                System.out.println("Thread interrupted? Should not happen.");
-            }
-        }
+        // Connect to database
+        Connection con = dbC.connect();
 
-        if (con != null)
-        {
-            try
-            {
-                // Close connection
-                con.close();
-            }
-            catch (Exception e)
-            {
-                System.out.println("Error closing connection to database");
-            }
-        }
+        //find and display information about a country
+        CountryReport rep1 = new CountryReport(con);
+        rep1.getCountryFromCode("FRA");
+        rep1.displayReport();
+
+        //list countries by pop in a given continent
+        CountryReport rep2 = new CountryReport(con);
+        rep2.getPopulousCountriesFromContinent("Europe", -1);
+        rep2.displayReport();
+
+        //list countries by pop in a given continent to a certain limit
+        CountryReport rep3 = new CountryReport(con);
+        rep3.getPopulousCountriesFromContinent("Africa", 3);
+        rep3.displayReport();
+
+        //list countries by pop in a given region to a certain limit
+        CountryReport rep4 = new CountryReport(con);
+        rep4.getPopulousCountriesFromRegion("Western Africa", 300);
+        rep4.displayReport();
+
+        //list all countries in the world by population to a certain limit
+        CountryReport rep5 = new CountryReport(con);
+        rep5.getPopulousCountriesInWorld(10);
+        rep5.displayReport();
+
+        // city report
+        CityReport cityReport = new CityReport(con);
+        cityReport.getPopulousCitiesInWorld(10);
+        cityReport.displayReport();
+
+        //country language report
+        CountryLanguageReport clr = new CountryLanguageReport(con);
+        clr.getLanguagesFromCountry("GBR");
+        clr.displayReport();
+
+        // Disconnect from database
+        dbC.disconnect();
     }
+
+
 }
