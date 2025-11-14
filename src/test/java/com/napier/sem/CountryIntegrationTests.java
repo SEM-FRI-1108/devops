@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.Connection;
 
 
-class CountryTest {
+class CountryIntegrationTests {
 
     static Connection con;
     static DatabaseConnector dbC;
