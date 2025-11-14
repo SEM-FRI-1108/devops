@@ -36,7 +36,7 @@ public class App
 
         //list countries by pop in a given region to a certain limit
         CountryReport rep4 = new CountryReport(con);
-        rep4.getPopulousCountriesFromRegion("Western Africa", 3);
+        rep4.getPopulousCountriesFromRegion("Western Africa", 300);
         rep4.displayReport();
 
         //list all countries in the world by population to a certain limit

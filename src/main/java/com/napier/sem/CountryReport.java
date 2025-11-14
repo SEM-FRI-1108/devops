@@ -121,15 +121,16 @@ public class CountryReport {
         }
     }
 
-    /**
-     * Display method for a report concerning a country.
-     */
+
     public void displayReport() {
         if (countries.isEmpty()) {
             System.out.println("There are no countries in this report.");
         }
         else {
             for (Country country : countries) {
+                if (country == null) {
+                    continue;
+                }
                 System.out.println(country.code + " | " +
                                     country.name + " | " +
                                     country.continent + " | " +
@@ -138,5 +139,9 @@ public class CountryReport {
                                     country.capital);
             }
         }
+    }
+
+    public ArrayList<Country> getCountries() {
+        return countries;
     }
 }
