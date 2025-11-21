@@ -61,7 +61,7 @@ public class App
 
         //capital city report
         CapitalCityReport capitalCityReport2 = new CapitalCityReport(con);
-        capitalCityReport2.getPopulousCapitalCitiesFromContinent("North America", -1);
+        capitalCityReport2.getPopulousCapitalCitiesFromContinent("North America", 10);
         capitalCityReport2.displayReport();
 
         //capital city report
