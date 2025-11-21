@@ -54,6 +54,21 @@ public class App
         clr.getLanguagesFromCountry("GBR");
         clr.displayReport();
 
+        //capital city report
+        CapitalCityReport capitalCityReport = new CapitalCityReport(con);
+        capitalCityReport.getPopulousCapitalCitiesInWorld(10);
+        capitalCityReport.displayReport();
+
+        //capital city report
+        CapitalCityReport capitalCityReport2 = new CapitalCityReport(con);
+        capitalCityReport2.getPopulousCapitalCitiesFromContinent("North America", -1);
+        capitalCityReport2.displayReport();
+
+        //capital city report
+        CapitalCityReport capitalCityReport3 = new CapitalCityReport(con);
+        capitalCityReport3.getPopulousCapitalCitiesFromRegion("Caribbean", 3);
+        capitalCityReport3.displayReport();
+
         // Disconnect from database
         dbC.disconnect();
     }
