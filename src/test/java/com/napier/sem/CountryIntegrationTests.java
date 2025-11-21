@@ -13,8 +13,8 @@ class CountryIntegrationTests {
 
     @BeforeAll
     static void initAll() {
-        dbC = new DatabaseConnector(true);
-        con = dbC.connect();
+        dbC = new DatabaseConnector();
+        con = dbC.connect("localhost:33060", 30000);
     }
 
     @BeforeEach
