@@ -65,10 +65,10 @@ public class CapitalCityReport {
     public void getPopulousCapitalCitiesFromContinent(String continent, int limit) {
         try {
             Statement stmt = con.createStatement();
-            String sql = "SELECT ID, Name, CountryCode, District, Population" +
+            String sql = "SELECT 'ID', 'Name', 'CountryCode', 'District', 'Population'" +
                     "FROM city " +
-                    "WHERE Continent = '" + continent + "' " +
-                    "ORDER BY Population DESC";
+                    "WHERE 'Continent' = '" + continent + "' " +
+                    "ORDER BY 'Population' DESC";
             if (limit != -1) {
                 sql += " LIMIT " + limit;
             }
@@ -90,10 +90,10 @@ public class CapitalCityReport {
     public void getPopulousCapitalCitiesFromRegion(String region, int limit) {
         try {
             Statement stmt = con.createStatement();
-            String sql = "SELECT ID, Name, CountryCode, District, Population" +
+            String sql = "SELECT 'ID', 'Name', 'CountryCode', 'District', 'Population'" +
                     "FROM city " +
-                    "WHERE Region = '" + region + "' " +
-                    "ORDER BY Population DESC";
+                    "WHERE 'Region' = '" + region + "' " +
+                    "ORDER BY 'Population' DESC";
             if (limit != -1) {
                 sql += " LIMIT " + limit;
             }
