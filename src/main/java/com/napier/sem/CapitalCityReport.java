@@ -41,9 +41,11 @@ public class CapitalCityReport {
     public void getPopulousCapitalCitiesInWorld(int limit) {
         try {
             Statement stmt = con.createStatement();
-            String sql = "SELECT ID, Name, CountryCode, District, Population " +
+            String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
                     "FROM city " +
-                    "ORDER BY Population DESC";
+                    "JOIN country ON country.Code = city.CountryCode " +
+                    "WHERE city.ID = country.Capital "+
+                    "ORDER BY city.Population DESC";
             if (limit != -1) {
                 sql += " LIMIT " + limit;
             }
