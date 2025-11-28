@@ -1,5 +1,9 @@
 package com.napier.sem;
 
+/**
+ * Class defining City objects used with City and CapitalCity reports.
+ * Defines a city's ID, Name, Country Code, District, and Population.
+ */
 public class City {
 
     /**

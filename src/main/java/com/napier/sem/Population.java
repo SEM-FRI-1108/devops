@@ -1,5 +1,9 @@
 package com.napier.sem;
 
+/**
+ * Class defining Populations objects used with Population reports.
+ * Defines a country's Name, Population, Urbanised Population & as a percentage of the country, Rural Population & as a percentage of the country
+ */
 public class Population {
 
     /**

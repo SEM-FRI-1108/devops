@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Class to deal with reports relating to countries.
+ * Contains methods to query countries by continent, region, or in the world, or to identify a singular Country.
+ * Contains a display method to directly output contents of report.
+ */
 public class CountryReport {
 
     private Connection con;

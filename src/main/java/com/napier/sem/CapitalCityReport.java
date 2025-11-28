@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Class to deal with reports relating to capital cities.
+ * Contains methods to query capital cities by continent, region, or in the world.
+ * Contains a display method to directly output contents of report.
+ */
 public class CapitalCityReport {
 
     private Connection con;

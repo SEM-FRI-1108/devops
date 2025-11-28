@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Class to deal with reports relating to cities.
+ * Contains methods to query cities by continent, region, or in the world, or to identify a singular City.
+ * Contains a display method to directly output contents of report.
+ */
 public class CityReport {
 
     private Connection con;

@@ -1,6 +1,10 @@
 package com.napier.sem;
 import java.sql.*;
 
+/**
+ * Class to connect to database provided.
+ * Connects using connect() method, which accepts the location of the database
+ */
 public class DatabaseConnector {
 
     /**
@@ -12,7 +16,10 @@ public class DatabaseConnector {
     }
 
     /**
-     * Connect to the MySQL database.
+     * Connects to the MySQL database. Location of the database is not fixed.
+     * @param location the location address to connect to. Can use localhost if neccessary
+     * @param delay the time delay (in ms) between each connection attempt if unsuccessful
+     * @return the successful Connection
      */
     public Connection connect(String location, int delay)
     {

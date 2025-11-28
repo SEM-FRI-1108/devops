@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Class to deal with reports relating to languages.
+ * Contains methods to query languages used in a specified country.
+ * Contains a display method to directly output contents of report.
+ */
 public class CountryLanguageReport {
 
     private Connection con;

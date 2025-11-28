@@ -2,22 +2,25 @@ package com.napier.sem;
 
 import java.sql.*;
 
+/**
+ * Main App Class for program
+ * Allows access to generating reports for Countries, Cities, Capital Cities, Languages, and Population Breakdowns
+ */
 public class App
 {
     public static void main(String[] args)
     {
         // Create new Database Connector
         // For DEBUG mode, connect to localhost for faster database access
-        boolean debug;
-        if (args.length == 0) {
-            debug = false;
-        } else {
-            debug = "debug".equalsIgnoreCase(args[0]);
-        }
-        DatabaseConnector dbC = new DatabaseConnector(debug);
+        DatabaseConnector dbC = new DatabaseConnector();
 
         // Connect to database
-        Connection con = dbC.connect();
+        Connection con;
+        if (args.length < 1) {
+            con = dbC.connect("localhost:33060", 3000);
+        } else {
+            con = dbC.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         //find and display information about a country
         CountryReport rep1 = new CountryReport(con);
