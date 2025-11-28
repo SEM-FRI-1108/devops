@@ -7,19 +7,14 @@ public class DatabaseConnector {
      * Connection to MySQL database.
      */
     private Connection con = null;
-    private String db_address = "db:3306";
 
-    public DatabaseConnector(boolean debug) {
-        if (debug) {
-            System.out.println("debug mode, local conection");
-            db_address = "localhost:33060";
-        }
+    public DatabaseConnector() {
     }
 
     /**
      * Connect to the MySQL database.
      */
-    public Connection connect()
+    public Connection connect(String location, int delay)
     {
         try
         {
@@ -42,7 +37,7 @@ public class DatabaseConnector {
                 Thread.sleep(3000);
                 // Connect to database
 
-                con = DriverManager.getConnection("jdbc:mysql://"+db_address+"/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://"+location+"/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected my friend");
                 return con;
             }
