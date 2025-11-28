@@ -12,7 +12,7 @@ public class App
         if (args.length == 0) {
             debug = false;
         } else {
-            debug = args[0].equalsIgnoreCase("debug");
+            debug = "debug".equalsIgnoreCase(args[0]);
         }
         DatabaseConnector dbC = new DatabaseConnector(debug);
 
@@ -68,6 +68,20 @@ public class App
         CapitalCityReport capitalCityReport3 = new CapitalCityReport(con);
         capitalCityReport3.getPopulousCapitalCitiesFromRegion("Caribbean", 3);
         capitalCityReport3.displayReport();
+
+        System.out.println("POP REPORTS");
+
+        PopulationReport popReport1 = new PopulationReport(con);
+        popReport1.getPopulationsFromContinent("Asia");
+        popReport1.displayReport();
+
+        PopulationReport popReport2 = new PopulationReport(con);
+        popReport2.getPopulationsFromRegion("Western Africa");
+        popReport2.displayReport();
+
+        PopulationReport popReport3 = new PopulationReport(con);
+        popReport3.getPopulationsFromCountry();
+        popReport3.displayReport();
 
         // Disconnect from database
         dbC.disconnect();

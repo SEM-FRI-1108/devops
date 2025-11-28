@@ -76,6 +76,60 @@ public class CityReport {
         }
     }
 
+
+    /**
+     * Method to search database for the most populated cities of a specified continent
+     * Will add City to this report's list of cities
+     * @param continent the continent the cities should be in
+     * @param limit the number of Cities. -1 for all
+     */
+    public void getPopulousCitiesFromContinent(String continent, int limit) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT ID, Name, CountryCode, District, Population " +
+                    "FROM city " +
+                    "JOIN country ON country.Code = city.CountryCode " +
+                    "WHERE country.Continent = '" + continent + "' " +
+                    "ORDER BY Population DESC";
+            if (limit != -1) {
+                sql += " LIMIT " + limit;
+            }
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to identify country");
+        }
+    }
+
+
+    /**
+     * Method to search database for the most populated cities of a specified region
+     * Will add City to this report's list of cities
+     * @param region the region cities should be in
+     * @param limit the number of Cities. -1 for all
+     */
+    public void getPopulousCitiesFromRegion(String region, int limit) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT city.ID, city.Name, city.CountryCode, city.District, city.Population " +
+                    "FROM city " +
+                    "JOIN country ON country.Code = city.CountryCode " +
+                    "WHERE country.Region = '" + region + "' " +
+                    "ORDER BY city.Population DESC";
+            if (limit != -1) {
+                sql += " LIMIT " + limit;
+            }
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to identify country");
+        }
+    }
+
     /**
      * Method to search database for the most populated cities of a specified country
      * Will add City to this report's list of cities
@@ -102,6 +156,31 @@ public class CityReport {
     }
 
     /**
+     * Method to search database for the most populated cities of a specified district
+     * Will add City to this report's list of cities
+     * @param district the district cities should be in
+     * @param limit the number of Cities. -1 for all
+     */
+    public void getPopulousCitiesFromDistrict(String district, int limit) {
+        try {
+            Statement stmt = con.createStatement();
+            String sql = "SELECT ID, Name, CountryCode, District, Population " +
+                    "FROM city " +
+                    "WHERE District = '" + district + "' " +
+                    "ORDER BY Population DESC";
+            if (limit != -1) {
+                sql += " LIMIT " + limit;
+            }
+            ResultSet resultSet = stmt.executeQuery(sql);
+            processResults(resultSet);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to identify country");
+        }
+    }
+
+    /**
      * Display method for cities in this report
      */
     public void displayReport() {
@@ -110,8 +189,7 @@ public class CityReport {
         }
         else {
             for (City city : cities) {
-                System.out.println(city.id + " | " +
-                        city.name + " | " +
+                System.out.println(city.name + " | " +
                         city.countryCode + " | " +
                         city.district + " | " +
                         city.population);
