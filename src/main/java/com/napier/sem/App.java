@@ -2,22 +2,25 @@ package com.napier.sem;
 
 import java.sql.*;
 
+/**
+ * Main App Class for program
+ * Allows access to generating reports for Countries, Cities, Capital Cities, Languages, and Population Breakdowns
+ */
 public class App
 {
     public static void main(String[] args)
     {
         // Create new Database Connector
         // For DEBUG mode, connect to localhost for faster database access
-        boolean debug;
-        if (args.length == 0) {
-            debug = false;
-        } else {
-            debug = args[0].equalsIgnoreCase("debug");
-        }
-        DatabaseConnector dbC = new DatabaseConnector(debug);
+        DatabaseConnector dbC = new DatabaseConnector();
 
         // Connect to database
-        Connection con = dbC.connect();
+        Connection con;
+        if (args.length < 1) {
+            con = dbC.connect("localhost:33060", 3000);
+        } else {
+            con = dbC.connect(args[0], Integer.parseInt(args[1]));
+        }
 
         //find and display information about a country
         CountryReport rep1 = new CountryReport(con);
@@ -53,6 +56,35 @@ public class App
         CountryLanguageReport clr = new CountryLanguageReport(con);
         clr.getLanguagesFromCountry("GBR");
         clr.displayReport();
+
+        //capital city report
+        CapitalCityReport capitalCityReport = new CapitalCityReport(con);
+        capitalCityReport.getPopulousCapitalCitiesInWorld(10);
+        capitalCityReport.displayReport();
+
+        //capital city report
+        CapitalCityReport capitalCityReport2 = new CapitalCityReport(con);
+        capitalCityReport2.getPopulousCapitalCitiesFromContinent("North America", 10);
+        capitalCityReport2.displayReport();
+
+        //capital city report
+        CapitalCityReport capitalCityReport3 = new CapitalCityReport(con);
+        capitalCityReport3.getPopulousCapitalCitiesFromRegion("Caribbean", 3);
+        capitalCityReport3.displayReport();
+
+        System.out.println("POP REPORTS");
+
+        PopulationReport popReport1 = new PopulationReport(con);
+        popReport1.getPopulationsFromContinent("Asia");
+        popReport1.displayReport();
+
+        PopulationReport popReport2 = new PopulationReport(con);
+        popReport2.getPopulationsFromRegion("Western Africa");
+        popReport2.displayReport();
+
+        PopulationReport popReport3 = new PopulationReport(con);
+        popReport3.getPopulationsFromCountry();
+        popReport3.displayReport();
 
         // Disconnect from database
         dbC.disconnect();

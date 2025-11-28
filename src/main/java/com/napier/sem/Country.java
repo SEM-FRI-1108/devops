@@ -1,5 +1,9 @@
 package com.napier.sem;
 
+/**
+ * Class defining Country objects used with CountryReports.
+ * Defines a Country's Code, Name, Continent, Region, Population, and Capital City Code.
+ */
 public class Country {
 
     /**
@@ -23,58 +27,13 @@ public class Country {
     public String region;
 
     /**
-     * Country's Surface Area
-     */
-    public float surfaceArea;
-
-    /**
-     * Country's Year of Independence
-     */
-    public int indepYear;
-
-    /**
      * Country's Population
      */
     public int population;
 
     /**
-     * Country's Average Life Expectancy
-     */
-    public float lifeExpectancy;
-
-    /**
-     * Country's Gross National Product
-     */
-    public float gnp;
-
-    /**
-     * Country's Old Gross National Product
-     */
-    public float gnpOld;
-
-    /**
-     * Country's Name in Local Language
-     */
-    public String localName;
-
-    /**
-     * Country's Form of Government
-     */
-    public String governmentForm;
-
-    /**
-     * Country's Head of State
-     */
-    public String headOfState;
-
-    /**
      * Country's Capital - as a code linked to Cities table
      */
     public int capital;
-
-    /**
-     * Country's Alpha-2 Code
-     */
-    public String code2;
 
 }
